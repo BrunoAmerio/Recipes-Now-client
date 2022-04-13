@@ -1,0 +1,22 @@
+.container{
+      text-align: center;
+
+      button{
+            position: absolute;
+            left: 15px;
+      }
+
+      .formContainer{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 30%;
+            margin: auto;
+            margin-top: 50px;
+
+            button{
+                  position: relative;
+                  left: 0px;
+            }
+      }
+}

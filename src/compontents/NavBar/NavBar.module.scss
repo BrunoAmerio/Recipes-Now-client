@@ -1,0 +1,170 @@
+@use '../../config/color.scss' as color;
+
+.container{
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      align-items: center;
+      height: 50px;
+      margin-bottom: 70px;
+
+      a{
+            position: absolute;
+            left: 20px;
+            text-decoration: none;
+            color: black;
+      }
+
+      .searchContainer{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            grid-column-start: 2;
+            position: relative;
+            transform: translateY(13px);
+
+            .search{
+                  display: flex;
+                  width: 100%;
+                  input{
+                        width: 100%;
+                        height: 44px;
+                        border: none;
+                        background-color: color.$grey;
+                        border-radius: 25px;
+                        padding: 0px 10px;
+                  }
+                  input::placeholder{
+                        color: white;
+                        font-size: 14px;
+                  }
+                  input:focus{
+                        outline: none;
+                  }
+                  button{
+                        position: absolute;
+                        right: 0;
+                        height: 43px;
+                        border: none;
+                        border-radius: 10px;
+                        background-color: transparent;
+                        cursor: pointer;
+                        transition: .1s;
+                  }
+                  button:hover{
+                        background-color: rgb(119, 125, 128);
+                        transition: .1s;
+                  }
+            }
+
+            .filterContainer{
+                  display: flex;
+                  gap: 20px;
+                  position: relative;
+                  z-index: 10;
+                  button{
+                        display: flex;
+                        align-items: center;
+                        margin-top: 6px;
+                        gap: 5px;
+                        border: none;
+                        width: 60px;
+                        height: 30px;
+                        border-radius: 10px;
+                        background-color: transparent;
+                        cursor:pointer;
+
+                        img{
+                              width: 10px;
+                        }
+                  }
+                  button:hover{
+                        background-color: rgb(167, 167, 167);
+                  }
+
+                  .dietMenu{
+                        display: none;
+                        flex-direction: column;
+                        flex-wrap: wrap;
+                        gap: 1px;
+                        border-radius: 10px;
+                        padding: 5px 10px;
+                        width: 500px;
+                        height: 180px;
+                        box-shadow: 5px 5px 10px rgb(92, 92, 92);
+                        position: absolute;
+                        top: 40px;
+                        right: -230px;
+                        background-color: white;
+                        z-index: 10;
+
+                        button{
+                              display: inline;
+                              width: auto;
+                              height: 35px;
+                              margin: 0px;
+                              background-color: color.$violet;
+                              color : white;
+                        }
+                        button:hover{
+                              background-color: color.$violet2 ;
+                        }
+                  }
+                  .enable{
+                        display: flex;
+                  }
+            }
+      }
+
+      .sideButtons{
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: absolute;
+            right: 30px;
+
+            button{
+                  background-color: color.$red;
+                  border : none;
+                  border-radius : 10px;
+                  color : white;
+                  height: 45px;
+                  width: 50px;
+                  cursor: pointer;
+
+                  img{
+                        width: 30px;
+                  }
+            }
+            button:hover{
+                  background-color: #fd7979;
+            }
+
+
+            .userMenu{
+                  display: none;
+                  position: absolute;
+                  width: 120px;
+                  right: 30px;
+                  top: 45px;
+                  z-index : 1;
+                  box-shadow: 5px 5px 10px rgb(92,92,92);
+                  border-radius: 5px;
+                  button{
+                        background-color: white;
+                        color : black;
+                        width: 100%;
+                        border-radius: 5px;
+                  }
+                  button:hover{
+                        background-color: rgb(156, 156, 156);
+                        transition : .1s
+                  }
+            }
+            .enable{
+                  display: inline;
+            }
+      }
+}
