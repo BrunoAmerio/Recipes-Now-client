@@ -1,11 +1,10 @@
-import s from './Home.module.scss';
-import RecipesContainer from '../../compontents/RecipesContainer/RecipesContainer';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllRecipes } from '../../redux/actions';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import s from './Home.module.scss';
 
 //COMPONENTES
-
+import RecipesContainer from '../../compontents/RecipesContainer/RecipesContainer';
 import NavBar from '../../compontents/NavBar/NavBar';
 
 const Home = ()=>{
@@ -17,7 +16,7 @@ const Home = ()=>{
             if(!recipes.length){
                   dispatch( getAllRecipes() )
             }
-      },[]);
+      },[dispatch]);
 
       return <div className={s.container}>
             <NavBar/>

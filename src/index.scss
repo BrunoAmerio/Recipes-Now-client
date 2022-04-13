@@ -1,0 +1,24 @@
+@use './config/fonts.scss' as font;
+
+h1, h2, h3{
+      font-family: 'Montserrat';
+}
+
+h3{
+      font-size: 16px;
+}
+
+h4{
+      font-size: 14px;
+      font-family: 'Montserrat-Light';
+}
+
+li{
+      font-family: 'Montserrat-Light';
+      font-size: 14px;
+}
+
+button{
+      font-family: 'Roboto';
+      color: rgb(31, 19, 65);
+}

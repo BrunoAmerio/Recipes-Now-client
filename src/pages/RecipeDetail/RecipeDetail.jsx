@@ -19,11 +19,11 @@ const RecipeDetail = ()=>{
                   dispatch( recipeDetail(id) )
             } else {
                   document.querySelector('#summary').innerHTML = recipe.summary
-                  document.querySelector('#instructions').innerHTML = recipe.instructions
+                  document.querySelector('#instructions').innerHTML = recipe.instructions ? recipe.instructions : '<h3> No avaible </h3>'
             }
-      },[recipe]);
+      },[recipe, dispatch, id]);
 
-
+      console.log(recipe)
 
       if(recipe){
             div = <div className={s.container}>
@@ -41,7 +41,7 @@ const RecipeDetail = ()=>{
                               </ul>
                         </div>
 
-                        <img src={recipe.image}/>
+                        <img src={recipe.image} alt='Recipe'/>
 
                         <div className={s.cuisines}>
                               <h3>Cuisines:</h3>

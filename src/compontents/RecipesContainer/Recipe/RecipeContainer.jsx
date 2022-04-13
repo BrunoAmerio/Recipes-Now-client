@@ -7,7 +7,6 @@ import { addFavorite, deleteFavorite } from '../../../redux/actions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const RecipeContainer = ( {recipe, favorites} )=>{
@@ -23,8 +22,6 @@ const RecipeContainer = ( {recipe, favorites} )=>{
             dispatch( deleteFavorite(userFavorite._id, recipeId) );
       };
 
-      console.log('esta es la receta', recipe)
-
       return <div className={s.container} key={recipe.id}>
 
             <div className={s.dataContainer} onClick={() => navigate(`/recipe/${recipe.id ? recipe.id : recipe._id}`)}>
@@ -35,7 +32,7 @@ const RecipeContainer = ( {recipe, favorites} )=>{
                         <div className={s.data}>
                               <h3>Dietas : </h3>
                               <ul>
-                                    {recipe.diets.length ?  recipe.diets.map(diet =>{
+                                    {recipe.diets?.length ?  recipe.diets.map(diet =>{
                                           return <li key={diet}>{diet}</li>
                                     }) :
                                     <li>No avaible</li>

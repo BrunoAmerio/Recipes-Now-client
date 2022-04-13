@@ -9,11 +9,13 @@
       height: 50px;
       margin-bottom: 70px;
 
-      a{
+      h1{
             position: absolute;
             left: 20px;
             text-decoration: none;
             color: black;
+            cursor: pointer;
+            
       }
 
       .searchContainer{
@@ -98,7 +100,7 @@
                         top: 40px;
                         right: -230px;
                         background-color: white;
-                        z-index: 10;
+                        z-index: 1;
 
                         button{
                               display: inline;

@@ -1,4 +1,4 @@
-import { SET_LOADING, GET_ALL_RECIPES, RECIPE_DETAIL, SEARCH, UPDATE_FAVORITE, UPDATE_USER } from "./actions";
+import { SET_LOADING, UPDATE_USER, RECIPE_DETAIL, GET_ALL_RECIPES, UPDATE_FAVORITE } from "./actions";
 
 const initialState = {
       currentUser : null,
@@ -22,7 +22,7 @@ const reducer = (state = initialState, {type, payload} )=>{
             case GET_ALL_RECIPES : 
                   return {
                         ...state,
-                        allRecipes : payload
+                        allRecipes : [...payload]
                   };
             case RECIPE_DETAIL : 
                   return {

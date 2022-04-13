@@ -1,18 +1,19 @@
-import {useDispatch, useSelector} from 'react-redux';
+import { search, getAllRecipes, logout, reorganization } from '../../redux/actions'; 
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
-import { logout } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
+import { notifyError } from '../../utils/notify';
 import axios from 'axios';
 import s from './NavBar.module.scss';
 
 //ICONOS
-import fav from '../../img/fav.svg';
-import userIcon from '../../img/user.svg';
 import SearchIcon from '@mui/icons-material/Search';
-import asc from '../../img/asc.svg';
-import desc from '../../img/desc.svg';
+import userIcon from '../../img/user.svg';
 import cutlery from '../../img/cutlery.svg';
 import apple from '../../img/apple.svg';
+import desc from '../../img/desc.svg';
+import fav from '../../img/fav.svg';
+import asc from '../../img/asc.svg';
 
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -22,20 +23,25 @@ const NavBar = ()=>{
       const navigate = useNavigate();
       const dispatch = useDispatch();
       const user = useSelector(state => state.currentUser);
+      const currentRecipes = useSelector(state => state.allRecipes);
       const [input, setInput] = useState([]);
       const [categories, setCategories] = useState([]);
 
       //Toma lo ingresado del search 
       const handlerChange = (event)=>{
-            console.log(event.target.value);
             setInput(event.target.value)
       }
 
       //Realiza la busqueda
       const handlerSubmit = (event) =>{
             event.preventDefault();
-            console.log('Esto es lo que buscaremos', input)
-      }
+
+            if(event.target.name){
+                  dispatch( search(event.target.name) )
+            }else if( input.length ) {
+                  dispatch( search(input) )
+            }
+      };
 
       //Activa y desctiva los menues
       const toggleUserMenu = (event)=>{
@@ -46,9 +52,32 @@ const NavBar = ()=>{
                   case 'dietMenu':
                         document.querySelector('#dietMenu').classList.toggle(s.enable);
                         break;
+                  default:
+                        break;
                   }
       }
 
+      //Ordenamiento
+      const sorting = (event)=>{
+            switch(event.target.name){
+                  case 'asc':
+                        dispatch( reorganization(currentRecipes, '>') )
+                        break;
+                  case 'desc':
+                        dispatch( reorganization(currentRecipes, '<') )
+                        break;
+                  case 'a-z':
+                        if(event.target.classList.toggle('a')){
+                              dispatch( reorganization(currentRecipes,'a') )
+                        } else{
+                              dispatch( reorganization(currentRecipes,'z') )
+                        }
+                        break;
+                  default:
+                        break;
+            }
+
+      }
 
       useEffect(()=>{
             if(!categories.length){
@@ -65,7 +94,12 @@ const NavBar = ()=>{
 
 
       return <div className={s.container}>
-            <a href='/'> <h1>Recipes Now</h1> </a>
+            <h1 onClick={() => {
+                  dispatch( getAllRecipes() )
+                  setTimeout(()=>{
+                        navigate('/')
+                  },500)
+            }}>Recipes Now</h1> 
 
             <div className={s.searchContainer}>
                   <form className={s.search} onSubmit={handlerSubmit}>
@@ -76,17 +110,17 @@ const NavBar = ()=>{
                   </form>
 
                   <div className={s.filterContainer}>
-                        <button>
-                              <img src={asc} alt='asc'/>
+                        <button name='asc' onClick={sorting}>
+                              <img src={asc} alt='asc' />
                               Asc
                         </button>
 
-                        <button>
-                              <img src={desc} alt='desc'/>
+                        <button name='desc' onClick={sorting}>
+                              <img src={desc} alt='desc' />
                               Desc
                         </button>
 
-                        <button>
+                        <button name='a-z' onClick={sorting} className='a'>
                               <img src={cutlery} alt='cutlery'/>
                               A-Z
                         </button>
@@ -98,7 +132,7 @@ const NavBar = ()=>{
 
                         <div className={s.dietMenu} id='dietMenu'>
                               {categories.length ? categories.map(item => {
-                                    return <button key={item}>{item}</button>
+                                    return <button key={item} onClick={handlerSubmit} name={item}>{item}</button>
                               }) : null }
                         </div>
                   </div>
@@ -118,7 +152,7 @@ const NavBar = ()=>{
                         </button>
                   </div>
 
-                  <button onClick={()=> navigate('/user/favorites')}>
+                  <button onClick={()=> !user ? notifyError('No user login') : navigate('/user/favorites')}>
                         <img src={fav} alt='fav'/>
                   </button>
             </div>

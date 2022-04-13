@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
-
 const Login = ()=>{
       const dispatch = useDispatch();
       const navigate = useNavigate();
@@ -28,7 +27,6 @@ const Login = ()=>{
       }
 
       const handlerSubmit = (event) =>{
-            console.log(user)
             event.preventDefault();
             axios.post(baseUrl + 'login', {...user})
             .then(res => {
