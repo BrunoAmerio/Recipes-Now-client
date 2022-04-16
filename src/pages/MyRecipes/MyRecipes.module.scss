@@ -1,0 +1,23 @@
+@use '../../config/color.scss' as color;
+@use '../../config/fonts.scss';
+
+.container {
+	display: flex;
+	flex-direction: column;
+	.createRecipe {
+		margin: auto;
+		background-color: color.$red;
+		border: none;
+		color: white;
+		font-family: 'Roboto';
+		font-size: 16px;
+		width: fit-content;
+		padding: 10px 15px;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	.createRecipe:hover {
+		background-color: color.$red2;
+		transition: 0.1s;
+	}
+}

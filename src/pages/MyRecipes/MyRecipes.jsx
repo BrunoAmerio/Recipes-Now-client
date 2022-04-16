@@ -10,42 +10,44 @@ import { useSelector } from 'react-redux';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
+const MyRecipes = () => {
+	const currentUser = useSelector(state => state.currentUser);
+	const [userRecipe, setUserRecipe] = useState([]);
+	const navigate = useNavigate();
 
-const MyRecipes = ()=>{
-      const currentUser = useSelector(state => state.currentUser)
-      const [userRecipe, setUserRecipe] = useState([]);
-      const navigate = useNavigate();
+	useEffect(() => {
+		axios.get(baseUrl + `recipe/user/${currentUser._id}`).then(res => {
+			const array = [];
+			res.data.recipes.forEach(recipe => {
+				array.push(axios.get(baseUrl + `recipe/detail/${recipe}`));
+			});
+			console.log(array);
+			Promise.all(array).then(res => {
+				const array = [];
+				res.forEach(item => {
+					array.push(item.data);
+				});
+				setUserRecipe(array);
+			});
+		});
+	}, []);
 
-      useEffect(()=>{
-            axios.get(baseUrl + `recipe/user/${currentUser._id}`)
-            .then( res => {
-                  const array = [];
-                  res.data.recipes.forEach(recipe =>{
-                        array.push( axios.get(baseUrl + `recipe/detail/${recipe}`) )
-                  })
-                  console.log(array)
-                  Promise.all(array)
-                  .then(res => {
-                        const array = [];
-                        res.forEach(item =>{
-                              array.push(item.data)
-                        })
-                        setUserRecipe(array);
-                  })
-            })
-            
-      },[]);
-
-
-
-      return <div className={s.container}>
-            <NavBar/>
-            <button onClick={() => navigate('/create/recipe')}>
-                  Create recipe
-            </button>
-            {!userRecipe.length ? <h1 className={s.message}>No hay recetas creadas</h1> 
-            : <RecipesContainer recipes={userRecipe} />}
-      </div>
-}
+	return (
+		<div className={s.container}>
+			<NavBar />
+			<button
+				onClick={() => navigate('/create/recipe')}
+				className={s.createRecipe}
+			>
+				Create recipe
+			</button>
+			{!userRecipe.length ? (
+				<h1 className={s.message}>No hay recetas creadas</h1>
+			) : (
+				<RecipesContainer recipes={userRecipe} place={'myRecipes'} />
+			)}
+		</div>
+	);
+};
 
 export default MyRecipes;

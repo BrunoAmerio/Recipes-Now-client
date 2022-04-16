@@ -9,17 +9,20 @@ import MyFavorites from './pages/MyFavorites/MyFavorites';
 import CreateRecipe from './pages/CreateRecipe/CreateRecipe';
 
 function App() {
-  return (
-    <Routes>
-      <Route path='/' element={ <Home/> }/>
-      <Route path='/register' element={ <Register/> } />
-      <Route path='/login' element={ <Login/> } />
-      <Route path='/recipe/:id' element={ <RecipeDetail/> }/>
-      <Route path='/user/recipes' element={ <MyRecipes/> } />
-      <Route path='/user/favorites' element={ <MyFavorites/> } />
-      <Route path='/create/recipe' element={ <CreateRecipe/> } />
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path='/' element={<Home />}>
+				<Route path='/:firstFilter' element={<Home />} />
+				<Route path='/:firstFilter/:secondFilter' element={<Home />} />
+			</Route>
+			<Route path='/register' element={<Register />} />
+			<Route path='/login' element={<Login />} />
+			<Route path='/recipe/:id' element={<RecipeDetail />} />
+			<Route path='/user/recipes' element={<MyRecipes />} />
+			<Route path='/user/favorites' element={<MyFavorites />} />
+			<Route path='/create/recipe' element={<CreateRecipe />} />
+		</Routes>
+	);
 }
 
 export default App;
